@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 
 export function App() {
-  const [game, setGame] = useState({
-    board: ['_', 'O', '_', '_', '_', '_'],
-  })
+  const alphabet = []
+  const [word, setWord] = useState('MOUSE')
+  const [letters, setLetters] = useState(['U', 'M'])
+
+  const wordArray = Array.from(word)
 
   return (
     <div>
@@ -11,12 +13,9 @@ export function App() {
         <h1>Do you want to build a snowman?</h1>
         <img src="/snowman/step_7.png" height="300px"></img>
         <ul>
-          <li>{game.board[0]}</li>
-          <li>{game.board[1]}</li>
-          <li>{game.board[2]}</li>
-          <li>{game.board[3]}</li>
-          <li>{game.board[4]}</li>
-          <li>{game.board[5]}</li>
+          {wordArray.map((char, i) => {
+            return <li key={i}>{letters.includes(char) ? char : '_'}</li>
+          })}
         </ul>
         <div className="letters">
           <button>A</button>
