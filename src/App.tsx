@@ -12,7 +12,7 @@ export function App() {
     <button key={letter}>{letter}</button>
   ))
 
-  const [word, setWord] = useState('MOUSE')
+  const [word, setWord] = useState(randomWord)
   const [letters, setLetters] = useState(['U', 'M'])
 
   const wordArray = Array.from(word)
