@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import wordList from '../wordList.json'
 
+let randomWord = wordList[Math.floor(Math.random() * wordList.length)]
+
 export function App() {
+  console.log(randomWord)
   const alphabetString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const alphabetArray = alphabetString.split('')
-  console.log(wordList[0])
 
   const listAlphabet = alphabetArray.map((letter) => (
     <button key={letter}>{letter}</button>
@@ -14,10 +16,6 @@ export function App() {
   const [letters, setLetters] = useState(['U', 'M'])
 
   const wordArray = Array.from(word)
-
-  async function selectRandomWord() {
-    return words.JSON[0]
-  }
 
   return (
     <div>
