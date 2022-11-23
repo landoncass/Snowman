@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 
 export function App() {
-  const alphabet = []
+  const alphabetString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const alphabetArray = alphabetString.split('')
+  console.log(alphabetArray)
+  const listAlphabet = alphabetArray.map((letter) => (
+    <button key={letter}>{letter}</button>
+  ))
+
   const [word, setWord] = useState('MOUSE')
   const [letters, setLetters] = useState(['U', 'M'])
 
@@ -17,22 +23,7 @@ export function App() {
             return <li key={i}>{letters.includes(char) ? char : '_'}</li>
           })}
         </ul>
-        <div className="letters">
-          <button>A</button>
-          <button>B</button>
-          <button>C</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-          <button>A</button>
-        </div>
+        <div className="letters">{listAlphabet}</div>
       </main>
     </div>
   )
