@@ -8,14 +8,16 @@ export function App() {
   const alphabetString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const alphabetArray = alphabetString.split('')
 
-  const listAlphabet = alphabetArray.map((letter) => (
-    <button key={letter}>{letter}</button>
-  ))
-
   const [word, setWord] = useState(randomWord)
-  const [letters, setLetters] = useState(['U', 'M'])
+  const [letters, setLetters] = useState([''])
 
   const wordArray = Array.from(word)
+
+  async function handleLetterClick(letter: string) {
+    console.log(`You clicked ${letter}`)
+    setLetters(letter)
+    console.log(letters)
+  }
 
   return (
     <div>
@@ -27,7 +29,16 @@ export function App() {
             return <li key={i}>{letters.includes(char) ? char : '_'}</li>
           })}
         </ul>
-        <div className="letters">{listAlphabet}</div>
+        <div className="letters">
+          {alphabetArray.map((letter) => {
+            return (
+              <button key={letter} onClick={() => handleLetterClick(letter)}>
+                {letter}
+              </button>
+            )
+          })}
+          {/* {listAlphabet} */}
+        </div>
       </main>
     </div>
   )

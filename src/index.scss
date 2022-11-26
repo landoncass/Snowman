@@ -33,3 +33,11 @@ li {
 .letters button {
   background-color: lightblue;
 }
+
+.letters button:hover {
+  background-color: white;
+}
+
+.letters button:focus {
+  background-color: white;
+}
