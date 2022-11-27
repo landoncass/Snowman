@@ -4,7 +4,7 @@ import wordList from '../wordList.json'
 let randomWord = wordList[Math.floor(Math.random() * wordList.length)]
 
 export function App() {
-  console.log(randomWord)
+  console.log(randomWord.toUpperCase())
   const alphabetString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const alphabetArray = alphabetString.split('')
 
@@ -14,9 +14,10 @@ export function App() {
   const wordArray = Array.from(word)
 
   async function handleLetterClick(letter: string) {
-    console.log(`You clicked ${letter}`)
-    setLetters(letter)
+    letters.push(letter)
+    setLetters(letters)
     console.log(letters)
+    return letters
   }
 
   return (
@@ -37,7 +38,6 @@ export function App() {
               </button>
             )
           })}
-          {/* {listAlphabet} */}
         </div>
       </main>
     </div>
