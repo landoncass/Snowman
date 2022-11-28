@@ -1,23 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import wordList from '../wordList.json'
 
-let randomWord = wordList[Math.floor(Math.random() * wordList.length)]
-
 export function App() {
+  const randomWord =
+    wordList[Math.floor(Math.random() * wordList.length)].toUpperCase()
   console.log(randomWord.toUpperCase())
-  const alphabetString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const alphabetArray = alphabetString.split('')
+  const alphabetArray = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+  ]
 
   const [word, setWord] = useState(randomWord)
-  const [letters, setLetters] = useState([''])
+  const [correctGuesses, setCorrectGuesses] = useState<string[]>([])
+  console.log(word)
 
   const wordArray = Array.from(word)
 
-  async function handleLetterClick(letter: string) {
-    letters.push(letter)
-    setLetters(letters)
-    console.log(letters)
-    return letters
+  async function handleLetterClick(alphabet: string) {
+    if (wordArray.includes(alphabet)) {
+      setCorrectGuesses([...correctGuesses, alphabet])
+      console.log(correctGuesses)
+    }
   }
 
   return (
@@ -27,17 +54,15 @@ export function App() {
         <img src="/snowman/step_7.png" height="300px"></img>
         <ul>
           {wordArray.map((char, i) => {
-            return <li key={i}>{letters.includes(char) ? char : '_'}</li>
+            return <li key={i}>{correctGuesses.includes(char) ? char : '_'}</li>
           })}
         </ul>
         <div className="letters">
-          {alphabetArray.map((letter) => {
-            return (
-              <button key={letter} onClick={() => handleLetterClick(letter)}>
-                {letter}
-              </button>
-            )
-          })}
+          {alphabetArray.map((alphabet, index) => (
+            <button key={index} onClick={() => handleLetterClick(alphabet)}>
+              {alphabet}
+            </button>
+          ))}
         </div>
       </main>
     </div>
