@@ -7,17 +7,17 @@ const randomWord =
 export function App() {
   console.log(randomWord.toUpperCase())
 
-  type alphabetLetterType = {
+  type alphabetArrayType = {
     text: string
     clicked: boolean
   }
 
-  useEffect(function () {
-    console.log('this runs when component first runs')
-    setAlphabetArray(alphabetArray)
-  }, [])
+  // useEffect(function () {
+  //   console.log('this runs when component first runs')
+  //   setAlphabetArray(alphabetArray)
+  // }, [])
 
-  const [alphabetArray, setAlphabetArray] = useState([
+  const [alphabetArray, setAlphabetArray] = useState<alphabetArrayType[]>([
     { text: 'A', clicked: false },
     { text: 'B', clicked: false },
     { text: 'C', clicked: false },
@@ -48,15 +48,21 @@ export function App() {
 
   const [word, setWord] = useState(randomWord)
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([])
-  // console.log(word)
 
   const wordArray = Array.from(word)
 
   async function handleLetterClick(alphabet: string) {
+    function toggleClicked() {
+      console.log('Clicked!')
+      {
+        setAlphabetArray([...alphabetArray, { text: alphabet, clicked: true }])
+      }
+    }
     if (wordArray.includes(alphabet)) {
       setCorrectGuesses([...correctGuesses, alphabet])
       console.log(correctGuesses)
     }
+    toggleClicked()
   }
 
   return (

@@ -41,3 +41,12 @@ li {
 .letters button:focus {
   background-color: white;
 }
+
+.clicked {
+  cursor: not-allowed;
+  pointer-events: none;
+
+  /*Button disabled - CSS color class*/
+  color: #c0c0c0;
+  background-color: #ffffff;
+}
