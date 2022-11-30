@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import wordList from '../wordList.json'
 
-const randomWord = wordList[Math.floor(Math.random() * wordList.length)]
+let randomWord = wordList[Math.floor(Math.random() * wordList.length)]
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
@@ -15,6 +15,12 @@ export function App() {
 
   async function handleLetterClick(letter: string) {
     setGuesses([...guesses, letter])
+  }
+
+  function handleNewGame() {
+    randomWord = wordList[Math.floor(Math.random() * wordList.length)]
+    setWord(randomWord)
+    setGuesses([])
   }
 
   //word = [s,n,o,w,m,a,n]
@@ -48,6 +54,12 @@ export function App() {
               {letter}
             </button>
           ))}
+        </div>
+        <p></p>
+        <div>
+          <button disabled={snowmanImage !== 7} onClick={() => handleNewGame()}>
+            Play again?
+          </button>
         </div>
       </main>
     </div>
