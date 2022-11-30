@@ -42,7 +42,7 @@ li {
   background-color: white;
 }
 
-.clicked {
+button[disabled] {
   cursor: not-allowed;
   pointer-events: none;
 

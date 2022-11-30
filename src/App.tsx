@@ -1,89 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import wordList from '../wordList.json'
 
-const randomWord =
-  wordList[Math.floor(Math.random() * wordList.length)].toUpperCase()
+const randomWord = wordList[Math.floor(Math.random() * wordList.length)]
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
 export function App() {
-  console.log(randomWord.toUpperCase())
-
-  type alphabetArrayType = {
-    text: string
-    clicked: boolean
-  }
-
-  // useEffect(function () {
-  //   console.log('this runs when component first runs')
-  //   setAlphabetArray(alphabetArray)
-  // }, [])
-
-  const [alphabetArray, setAlphabetArray] = useState<alphabetArrayType[]>([
-    { text: 'A', clicked: false },
-    { text: 'B', clicked: false },
-    { text: 'C', clicked: false },
-    { text: 'D', clicked: false },
-    { text: 'E', clicked: false },
-    { text: 'F', clicked: false },
-    { text: 'G', clicked: false },
-    { text: 'H', clicked: false },
-    { text: 'I', clicked: false },
-    { text: 'J', clicked: false },
-    { text: 'K', clicked: false },
-    { text: 'L', clicked: false },
-    { text: 'M', clicked: false },
-    { text: 'N', clicked: false },
-    { text: 'O', clicked: false },
-    { text: 'P', clicked: false },
-    { text: 'Q', clicked: false },
-    { text: 'R', clicked: false },
-    { text: 'S', clicked: false },
-    { text: 'T', clicked: false },
-    { text: 'U', clicked: false },
-    { text: 'V', clicked: false },
-    { text: 'W', clicked: false },
-    { text: 'X', clicked: false },
-    { text: 'Y', clicked: false },
-    { text: 'Z', clicked: false },
-  ])
+  console.log(randomWord)
 
   const [word, setWord] = useState(randomWord)
-  const [correctGuesses, setCorrectGuesses] = useState<string[]>([])
+  const [guesses, setGuesses] = useState<string[]>([])
 
   const wordArray = Array.from(word)
 
-  async function handleLetterClick(alphabet: string) {
-    function toggleClicked() {
-      console.log('Clicked!')
-      {
-        setAlphabetArray([...alphabetArray, { text: alphabet, clicked: true }])
-      }
-    }
-    if (wordArray.includes(alphabet)) {
-      setCorrectGuesses([...correctGuesses, alphabet])
-      console.log(correctGuesses)
-    }
-    toggleClicked()
+  async function handleLetterClick(letter: string) {
+    setGuesses([...guesses, letter])
   }
+
+  //word = [s,n,o,w,m,a,n]
+  // guesses = [o,n,p]
+  // word.filter(l => guesses.includes(l)) <= [n,o,n]
+  //  [n,o,n].length
+
+  let snowmanImage = wordArray.filter((letter) =>
+    guesses.includes(letter)
+  ).length
 
   return (
     <div>
       <main>
         <h1>Do you want to build a snowman?</h1>
         <p></p>
-        <img src="/snowman/step_7.png" height="300px"></img>
+        <img src={`/snowman/step_${snowmanImage}.png`} height="300px" />
         <ul>
           {wordArray.map((char, i) => {
-            return <li key={i}>{correctGuesses.includes(char) ? char : '_'}</li>
+            return <li key={i}>{guesses.includes(char) ? char : '_'}</li>
           })}
         </ul>
         <div className="letters">
-          {alphabetArray.map((alphabet, index) => (
+          {alphabet.map((letter, index) => (
             <button
               key={index}
-              onClick={() => handleLetterClick(alphabet.text)}
-              className={alphabet.clicked ? 'clicked' : ''}
+              onClick={() => handleLetterClick(letter)}
+              disabled={guesses.includes(letter)}
+              className={guesses.includes(letter) ? 'clicked' : undefined}
             >
-              {alphabet.text}
+              {letter}
             </button>
           ))}
         </div>
